@@ -56,7 +56,7 @@ public class RegisterForm extends Activity implements View.OnClickListener{
         if(registered)
         {
             Intent loginIntent = new Intent(this, LoginActivity.class);
-            loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(loginIntent);
             this.finish();
         }
@@ -122,7 +122,9 @@ public class RegisterForm extends Activity implements View.OnClickListener{
                         // Continue with delete operation
                         dialog.dismiss();
                         Intent loginIntent = new Intent(RegisterForm.this, LoginActivity.class);
+                        loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(loginIntent);
+                        finish();
                     }
                 })
                 // A null listener allows the button to dismiss the dialog and take no further action.

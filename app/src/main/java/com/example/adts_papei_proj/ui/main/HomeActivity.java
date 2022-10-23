@@ -40,6 +40,7 @@ import com.example.adts_papei_proj.databinding.ActivityHomeBinding;
 import com.example.adts_papei_proj.databinding.ActivityMainBinding;
 import com.example.adts_papei_proj.helpers.IncidentType;
 import com.example.adts_papei_proj.ui.incidents.Incident;
+import com.example.adts_papei_proj.ui.login.LoginActivity;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -47,6 +48,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.commons.io.output.ByteArrayOutputStream;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -89,6 +91,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     FirebaseStorage storage;
     StorageReference storageReference;
     String imageUrl ="";
+    FirebaseAuth.AuthStateListener authStateListener;
+    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,7 +103,18 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
         binding.setVm(vm);
         context = HomeActivity.this;
-
+        authStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+                if (firebaseUser == null) {
+                    Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    finish();
+                }
+            }
+        };
         // drawer layout instance to toggle the menu icon to open
         // drawer and back button to close drawer
         drawerLayout = findViewById(R.id.drawer_layout);
@@ -126,6 +141,18 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        firebaseAuth.addAuthStateListener(authStateListener);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        firebaseAuth.removeAuthStateListener(authStateListener);
+    }
+
     private boolean checkAndRequestPermissions() {
         int permissionSendMessage = ContextCompat.checkSelfPermission(this,
                 Manifest.permission.CAMERA);
@@ -150,7 +177,13 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.logoutBtn:
                 //todo check here if is needed, finish might always return to Login Screen
                 //todo review
-                vm.logout();
+                //sign out firebase user
+                FirebaseAuth.getInstance().signOut();
+                //intent to Login Activity
+                Intent registerIntent = new Intent(context, LoginActivity.class);
+                registerIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(registerIntent);
+                //vm.logout();
                 finish();
             default:
 

@@ -24,10 +24,10 @@ public class TestActivity extends AppCompatActivity {
     private TextView questionTV, questionNumberTV;
     private Button button1, button2, button3, button4;
     private ArrayList<Question> questionArrayList ;
-    int currentScore, questionAttempted, currentPos = 0;
+    int currentScore, questionAttempted, currentPos, currentAttempt = 0;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_test_b);
@@ -107,11 +107,14 @@ public class TestActivity extends AppCompatActivity {
     private void setDataToViews(int currentPos){
         if(questionAttempted == 9)
         {
+            currentAttempt = questionAttempted+1;
+            questionNumberTV.setText("Questions Attempted: " + currentAttempt + "/10");
             showScore();
         }
         else
         {
-            questionNumberTV.setText("Questions Attempted: " + questionAttempted + "/10");
+            currentAttempt = questionAttempted+1;
+            questionNumberTV.setText("Questions Attempted: " + currentAttempt + "/10");
             questionTV.setText(questionArrayList.get(currentPos).getQuestionText());
 
             button1.setText(questionArrayList.get(currentPos).getPossibleAnswer1());
@@ -166,13 +169,13 @@ public class TestActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //restart values
-                currentPos = 0;
                 setDataToViews(currentPos);
-                questionAttempted = 0;
-                currentScore = 0;
                 bottomSheetDialog.dismiss();
             }
         });
+        currentPos = 0;
+        questionAttempted = 0;
+        currentScore = 0;
         bottomSheetDialog.setCancelable(false);
         bottomSheetDialog.setContentView(bottomView);
         bottomSheetDialog.show();

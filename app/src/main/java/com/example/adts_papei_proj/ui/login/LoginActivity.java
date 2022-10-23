@@ -38,6 +38,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private ActivityLoginBinding binding;
     private TextView register,forgotPassword;
     private FirebaseAuth mAuth;
+    FirebaseAuth.AuthStateListener authStateListener;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +49,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         binding.setVm(vm);
 
         mAuth = FirebaseAuth.getInstance();
+       authStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+                if (firebaseUser != null) {
+                    intentToHomeActivity();
+                }
+            }
+        };
 
         //set views
         setViews();
@@ -161,6 +171,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
     }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(authStateListener);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mAuth.removeAuthStateListener(authStateListener);
+    }
 
     private void setViews() {
     }
@@ -234,10 +255,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     if(user.isEmailVerified())
                     {
                         //redirect to Main Activity
-                        Intent loginIntent = new Intent(LoginActivity.this, HomeActivity.class);
-                        loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(loginIntent);
-                        finish();
+                        intentToHomeActivity();
                     }
                     else
                     {
@@ -266,6 +284,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
         });
 
+    }
+
+
+    private void intentToHomeActivity()
+    {
+        //redirect to Main Activity
+        Intent loginIntent = new Intent(LoginActivity.this, HomeActivity.class);
+        loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(loginIntent);
+        finish();
     }
 
 
