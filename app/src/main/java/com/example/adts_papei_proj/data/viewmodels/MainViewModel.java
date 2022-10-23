@@ -9,8 +9,6 @@ import android.os.Environment;
 import androidx.lifecycle.ViewModel;
 
 
-import com.example.adts_papei_proj.ui.AllProblems;
-import com.example.adts_papei_proj.ui.incidents.Incident;
 import com.example.adts_papei_proj.ui.login.LoginActivity;
 import com.example.adts_papei_proj.ui.test.TestActivity;
 import com.google.firebase.auth.FirebaseAuth;
@@ -22,9 +20,6 @@ public class MainViewModel extends ViewModel {
     private String username;
     private Location location;
     Context context;
-    Incident incident;
-    String incidentType="";
-    String incidentDescription = "";
 
     public MainViewModel() {
     }
@@ -49,13 +44,6 @@ public class MainViewModel extends ViewModel {
         Intent registerIntent = new Intent(context, LoginActivity.class);
         registerIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK);
         context.startActivity(registerIntent);
-    }
-
-    public void viewAllIncidents()
-    {
-        Intent viewProblemsIntent = new Intent(context, AllProblems.class);
-        viewProblemsIntent.putExtra("user","no");
-        context.startActivity(viewProblemsIntent);
     }
 
     public void startNewTest()
