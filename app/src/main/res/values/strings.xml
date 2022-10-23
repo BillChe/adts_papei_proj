@@ -28,6 +28,10 @@
     <string name="new_test">Start new test</string>
     <string name="number_of_questions">Number of questions</string>
     <string name="question_1">I\'m very happy _____ in India. I really miss being there.</string>
+    <string name="question_2">They didn\'t reach an agreement ______ their differences.</string>3
+    <string name="question_3">I wish I _____ those words. But now it\'s too late.</string>
+
+
 
 
     <string name="nav_open">Open</string>

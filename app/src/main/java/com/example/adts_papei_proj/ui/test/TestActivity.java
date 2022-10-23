@@ -58,7 +58,7 @@ public class TestActivity extends AppCompatActivity {
                     currentScore++;
                 }
                 questionAttempted++;
-                currentPos = currentPos++;
+                currentPos++;
                 setDataToViews(currentPos);
             }
         });
@@ -71,7 +71,7 @@ public class TestActivity extends AppCompatActivity {
                     currentScore++;
                 }
                 questionAttempted++;
-                currentPos = currentPos++;
+                currentPos++;
                 setDataToViews(currentPos);
             }
         });
@@ -84,7 +84,7 @@ public class TestActivity extends AppCompatActivity {
                     currentScore++;
                 }
                 questionAttempted++;
-                currentPos = currentPos++;
+                currentPos++;
                 setDataToViews(currentPos);
             }
         });
@@ -98,7 +98,7 @@ public class TestActivity extends AppCompatActivity {
                     currentScore++;
                 }
                 questionAttempted++;
-                currentPos = currentPos++;
+                currentPos++;
                 setDataToViews(currentPos);
             }
         });
@@ -129,10 +129,10 @@ public class TestActivity extends AppCompatActivity {
         questionArrayList.add(new Question(getString(R.string.question_1),"to live",
                 "to have lived", "to be lived", "to be living",
                 "to have lived",0,2));
-        questionArrayList.add(new Question(getString(R.string.question_1),"to live",
-                "to have lived", "to be lived", "to be living",
-                "to have lived",0,1));
-        questionArrayList.add(new Question(getString(R.string.question_1),"to live",
+        questionArrayList.add(new Question(getString(R.string.question_2),"on account of",
+                "due", "because", "owing",
+                "on account of",0,1));
+        questionArrayList.add(new Question(getString(R.string.question_3),"to live",
                 "to have lived", "to be lived", "to be living",
                 "to have lived",0,1));
         questionArrayList.add(new Question(getString(R.string.question_1),"to live",
