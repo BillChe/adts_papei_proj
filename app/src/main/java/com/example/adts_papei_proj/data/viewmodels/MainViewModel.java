@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModel;
 import com.example.adts_papei_proj.ui.AllProblems;
 import com.example.adts_papei_proj.ui.incidents.Incident;
 import com.example.adts_papei_proj.ui.login.LoginActivity;
+import com.example.adts_papei_proj.ui.test.TestActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.io.File;
@@ -57,11 +58,13 @@ public class MainViewModel extends ViewModel {
         context.startActivity(viewProblemsIntent);
     }
 
-    public void viewUserIncidents()
+    public void startNewTest()
     {
-        Intent viewProblemsIntent = new Intent(context, AllProblems.class);
-        viewProblemsIntent.putExtra("user","yes");
-        context.startActivity(viewProblemsIntent);
+        Intent startNewTestIntent = new Intent(context, TestActivity.class);
+/*
+        startNewTestIntent.putExtra("user","yes");
+*/
+        context.startActivity(startNewTestIntent);
     }
 
     private void createDirectoryAndSaveFile(Bitmap imageToSave, String fileName) {

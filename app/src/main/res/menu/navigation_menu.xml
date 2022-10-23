@@ -5,7 +5,7 @@
 
     <item
         android:id="@+id/report"
-        android:title="@string/report_new" />
+        android:title="@string/new_test" />
 
     <item
         android:id="@+id/view_all_user_incidents"
