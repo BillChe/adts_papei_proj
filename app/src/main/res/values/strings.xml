@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">PAPEI ADTS</string>
+    <string name="app_name_sec">Adaptive Teaching Systems</string>
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
@@ -27,6 +28,7 @@
     <string name="enter_valid_email_try_again">Please enter a valid email and try again</string>
     <string name="new_test_b2">Start new test B2 Level</string>
     <string name="new_test_b1">Start new test B1 Level</string>
+    <string name="results">Show Results</string>
     <string name="continue_test">Continue test</string>
     <string name="number_of_questions">Number of questions</string>
     <string name="question_1">I\'m very happy _____ in India. I really miss being there.</string>

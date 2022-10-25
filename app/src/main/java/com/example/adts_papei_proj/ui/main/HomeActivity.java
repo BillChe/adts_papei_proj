@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
@@ -13,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.drawerlayout.widget.DrawerLayout;
 import com.example.adts_papei_proj.R;
+import com.example.adts_papei_proj.data.model.LoggedInUser;
 import com.example.adts_papei_proj.data.viewmodels.MainViewModel;
 import com.example.adts_papei_proj.databinding.ActivityHomeBinding;
 import com.example.adts_papei_proj.ui.login.LoginActivity;
@@ -35,6 +38,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     StorageReference storageReference;
     FirebaseAuth.AuthStateListener authStateListener;
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    TextView usernameTextView ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +77,10 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         // get the Firebase  storage reference
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
-
+        usernameTextView = findViewById(R.id.usernameTextView);
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+        vm.setUsername(getIntent().getStringExtra("name"));
+        usernameTextView.setText("Welcome "+ vm.getUsername());
     }
 
     @Override

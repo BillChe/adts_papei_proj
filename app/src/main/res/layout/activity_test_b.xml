@@ -2,9 +2,12 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/purple_700">
 
     <TextView
+        android:fontFamily="sans-serif-black"
+        android:textColor="@color/white"
         android:id="@+id/idTVQuestionAttempted"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -13,12 +16,13 @@
         android:text="@string/number_of_questions"
         android:textAlignment="center"
         android:textAllCaps="false"
-        android:textColor="@color/black"
         android:textSize="20sp">
 
     </TextView>
 
     <TextView
+        android:fontFamily="sans-serif-black"
+        android:textColor="@color/white"
         android:id="@+id/idTVQuestion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,7 +32,6 @@
         android:text="@string/question_1"
         android:textAlignment="center"
         android:textAllCaps="false"
-        android:textColor="@color/black"
         android:textSize="25sp">
 
     </TextView>

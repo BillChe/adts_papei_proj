@@ -13,7 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.login.LoginActivity"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:background="@color/purple_700">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/etUsernameLayout"
@@ -22,13 +23,22 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="96dp">
-
+            android:layout_marginTop="96dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:background="@color/bloodred"
+            android:backgroundTint="@color/white"
+            app:hintTextColor="@color/white">
             <EditText
+
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:background="@color/bloodred"
                 android:id="@+id/username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/prompt_email"
+
                 android:inputType="textEmailAddress"/>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -38,12 +48,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/white"
             android:layout_marginTop="8dp"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/white"
+            android:textColorHint="@color/white"
+            app:hintTextColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/etUsernameLayout">
 
             <EditText
+
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:background="@color/bloodred"
                 android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -58,7 +77,11 @@
             android:layout_marginTop="16dp"
             android:layout_marginBottom="64dp"
             android:enabled="false"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/bloodred"
             android:text="@string/login"
+
+            android:fontFamily="sans-serif-black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -66,14 +89,17 @@
             app:layout_constraintVertical_bias="0.2" />
 
         <LinearLayout
+            android:id="@+id/extraBtnsLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/img"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/login">
 
             <TextView
+                android:textColor="@color/white"
                 android:id="@+id/forgotPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -81,7 +107,8 @@
                 android:focusable="true"
                 android:clickable="true"
                 android:layout_weight="1"
-                android:gravity="center">
+                android:gravity="center"
+                android:fontFamily="sans-serif-black">
             </TextView>
 
             <TextView
@@ -89,15 +116,28 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/register"
-
+                android:textColor="@color/white"
                 android:clickable="true"
                 android:focusable="true"
                 android:layout_weight="1"
-                android:gravity="center">
+                android:gravity="center"
+                android:fontFamily="sans-serif-black">
             </TextView>
 
         </LinearLayout>
 
+        <ImageView
+            android:id="@+id/img"
+            android:src="@drawable/papei_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintHeight_max="60dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/extraBtnsLayout">
+
+        </ImageView>
         <ProgressBar
             android:id="@+id/loading"
             android:layout_width="wrap_content"

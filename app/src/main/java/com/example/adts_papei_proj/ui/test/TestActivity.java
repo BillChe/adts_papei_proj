@@ -197,7 +197,7 @@ public class TestActivity extends AppCompatActivity {
                 "the Japanese", 0, 1));
         questionArrayList.add(new Question(getString(R.string.question_2_5), " so",
                 "such", "such a", "so much",
-                " such", 0, 2));
+                "such", 0, 2));
         questionArrayList.add(new Question(getString(R.string.question_2_6), "will read",
                 "am going to read", "will be reading", "will have read",
                 "will have read", 0, 4));
@@ -207,9 +207,9 @@ public class TestActivity extends AppCompatActivity {
         questionArrayList.add(new Question(getString(R.string.question_2_8), "could",
                 "would", "had", "will",
                 "could", 0, 1));
-        questionArrayList.add(new Question(getString(R.string.question_2_9), " disappointing",
+        questionArrayList.add(new Question(getString(R.string.question_2_9), "disappointing",
                 "disappointed", "disappoint", "disappointingly",
-                " disappointing", 0, 1));
+                "disappointing", 0, 1));
         questionArrayList.add(new Question(getString(R.string.question_2_10), "get married",
                 "to get married ", "having got married", "to have got married",
                 "having got married", 0, 3));
@@ -220,14 +220,14 @@ public class TestActivity extends AppCompatActivity {
                 "you wait", " you to wait", "you waiting",
                 "you waited", 0, 1));
         questionArrayList.add(new Question(getString(R.string.question_2_13), "are thought that they",
-                " it’s thought that they", "are thought to", "are thought that",
+                "it’s thought that they", "are thought to", "are thought that",
                 "are thought to", 0, 3));
         questionArrayList.add(new Question(getString(R.string.question_2_14), "test my blood pressure",
                 "have my blood pressure tested", "have tested my blood pressure", "get to test my blood pressure",
                 "have my blood pressure tested", 0, 2));
-        questionArrayList.add(new Question(getString(R.string.question_2_15), " Despite of",
-                " Although", " In spite of", "However",
-                " In spite of", 0, 3));
+        questionArrayList.add(new Question(getString(R.string.question_2_15), "Despite of",
+                "Although", "In spite of", "However",
+                "In spite of", 0, 3));
     }
 
 

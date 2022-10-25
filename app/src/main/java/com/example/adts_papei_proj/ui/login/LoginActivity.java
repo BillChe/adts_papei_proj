@@ -54,7 +54,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
                 if (firebaseUser != null) {
-                    intentToHomeActivity();
+                    intentToHomeActivity(firebaseUser.getDisplayName());
                 }
             }
         };
@@ -254,8 +254,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                     if(user.isEmailVerified())
                     {
+                        user.getDisplayName();
                         //redirect to Main Activity
-                        intentToHomeActivity();
+                        intentToHomeActivity(user.getDisplayName());
                     }
                     else
                     {
@@ -287,11 +288,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
 
-    private void intentToHomeActivity()
+    private void intentToHomeActivity(String displayName)
     {
         //redirect to Main Activity
         Intent loginIntent = new Intent(LoginActivity.this, HomeActivity.class);
         loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        loginIntent.putExtra("name",displayName);
         startActivity(loginIntent);
         finish();
     }
