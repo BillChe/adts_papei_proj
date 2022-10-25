@@ -41,7 +41,16 @@ public class TestActivity extends AppCompatActivity {
 
         //create questions
         questionArrayList = new ArrayList<>();
-        createQuestions(questionArrayList);
+        if(getIntent().getStringExtra("level").equals("b1"))
+        {
+            createQuestionsB1(questionArrayList);
+        }
+        else if (getIntent().getStringExtra("level").equals("b2"))
+        {
+            createQuestionsB2(questionArrayList);
+        }
+
+
         currentPos = 0;
         setDataToViews(currentPos);
         setListeners();
@@ -125,7 +134,7 @@ public class TestActivity extends AppCompatActivity {
 
     }
 
-    private void createQuestions(ArrayList<Question> questionArrayList) {
+    private void createQuestionsB2(ArrayList<Question> questionArrayList) {
         questionArrayList.add(new Question(getString(R.string.question_1),"to live",
                 "to have lived", "to be lived", "to be living",
                 "to have lived",0,2));
@@ -172,6 +181,55 @@ public class TestActivity extends AppCompatActivity {
                 "It's not permitted to offer", "It's not permitted offering", "It's not allowed to offer",
                 "It's not permitted to offer",0,2));
     }
+
+    private void createQuestionsB1 (ArrayList<Question> questionArrayList) {
+        questionArrayList.add(new Question(getString(R.string.question_2_1), "they have travelled ",
+                "have they travelled to", "they have travelled to", "have they travelled",
+                "they have travelled to", 0, 3));
+        questionArrayList.add(new Question(getString(R.string.question_2_2), "I do",
+                "I like", "Do i", "I am",
+                "I do", 0, 1));
+        questionArrayList.add(new Question(getString(R.string.question_2_3),
+                " Have you been seeing / have looked", "Have you seen / 've been looking", "Have you been seen / have been looking",
+                "Have you seing / 've looked", "Have you seen / 've been looking", 0, 2));
+        questionArrayList.add(new Question(getString(R.string.question_2_4), "the Japanese",
+                "the Japanese people", "the Japaneses", "Japaneses",
+                "the Japanese", 0, 1));
+        questionArrayList.add(new Question(getString(R.string.question_2_5), " so",
+                "such", "such a", "so much",
+                " such", 0, 2));
+        questionArrayList.add(new Question(getString(R.string.question_2_6), "will read",
+                "am going to read", "will be reading", "will have read",
+                "will have read", 0, 4));
+        questionArrayList.add(new Question(getString(R.string.question_2_7), "wouldn't be",
+                "wouldn't have been", "isn't", "weren't",
+                "weren't", 0, 4));
+        questionArrayList.add(new Question(getString(R.string.question_2_8), "could",
+                "would", "had", "will",
+                "could", 0, 1));
+        questionArrayList.add(new Question(getString(R.string.question_2_9), " disappointing",
+                "disappointed", "disappoint", "disappointingly",
+                " disappointing", 0, 1));
+        questionArrayList.add(new Question(getString(R.string.question_2_10), "get married",
+                "to get married ", "having got married", "to have got married",
+                "having got married", 0, 3));
+        questionArrayList.add(new Question(getString(R.string.question_2_11), "shouldn't have gone",
+                "should have gone", "must have gone", "can’t have gone",
+                "should have gone", 0, 2));
+        questionArrayList.add(new Question(getString(R.string.question_2_12), "you waited",
+                "you wait", " you to wait", "you waiting",
+                "you waited", 0, 1));
+        questionArrayList.add(new Question(getString(R.string.question_2_13), "are thought that they",
+                " it’s thought that they", "are thought to", "are thought that",
+                "are thought to", 0, 3));
+        questionArrayList.add(new Question(getString(R.string.question_2_14), "test my blood pressure",
+                "have my blood pressure tested", "have tested my blood pressure", "get to test my blood pressure",
+                "have my blood pressure tested", 0, 2));
+        questionArrayList.add(new Question(getString(R.string.question_2_15), " Despite of",
+                " Although", " In spite of", "However",
+                " In spite of", 0, 3));
+    }
+
 
     private void showScore(){
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(TestActivity.this);

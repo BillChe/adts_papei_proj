@@ -46,12 +46,21 @@ public class MainViewModel extends ViewModel {
         context.startActivity(registerIntent);
     }
 
-    public void startNewTest()
+    public void startNewTestB1Level()
     {
         Intent startNewTestIntent = new Intent(context, TestActivity.class);
-/*
-        startNewTestIntent.putExtra("user","yes");
-*/
+
+        startNewTestIntent.putExtra("level","b1");
+
+        context.startActivity(startNewTestIntent);
+    }
+
+    public void startNewTestB2Level()
+    {
+        Intent startNewTestIntent = new Intent(context, TestActivity.class);
+
+        startNewTestIntent.putExtra("level","b2");
+
         context.startActivity(startNewTestIntent);
     }
 

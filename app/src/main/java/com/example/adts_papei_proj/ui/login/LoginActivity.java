@@ -228,17 +228,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             return;
         }
         //valida password input
-        if(password.isEmpty())
+        if(password.isEmpty()  && Patterns.EMAIL_ADDRESS.matcher(email).matches())
         {
-            binding.username.setError(LoginActivity.this.getString(R.string.require_password));
-            binding.username.requestFocus();
+           binding.password.setError(LoginActivity.this.getString(R.string.require_password));
+            binding.password.requestFocus();
             return;
         }
         //email verification
-        if(password.length()<6)
+        if(password.length()<6 && Patterns.EMAIL_ADDRESS.matcher(email).matches())
         {
-            binding.username.setError(LoginActivity.this.getString(R.string.min_password));
-            binding.username.requestFocus();
+            //binding.password.setError(LoginActivity.this.getString(R.string.min_password));
+            binding.password.requestFocus();
             return;
         }
 
