@@ -70,6 +70,7 @@
                 android:inputType="textPassword"/>
         </com.google.android.material.textfield.TextInputLayout>
         <Button
+            android:background="@drawable/roundedbtn"
             android:id="@+id/login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -80,7 +81,6 @@
             android:textColor="@color/white"
             android:backgroundTint="@color/bloodred"
             android:text="@string/login"
-
             android:fontFamily="sans-serif-black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

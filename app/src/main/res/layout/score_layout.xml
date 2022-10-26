@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/purple_200"
+        android:textColor="@color/bloodred"
         android:textStyle="bold"
         android:textSize="20sp"
         android:textAlignment="center"
@@ -26,9 +26,10 @@
         android:layout_height="match_parent"
         android:layout_margin="20dp"
         android:text="@string/nav_close"
+        android:textColor="@color/white"
         android:textAllCaps="false"
         android:id="@+id/closeBtn"
-        >
+        android:background="@drawable/roundedbtn">
 
     </Button>
 

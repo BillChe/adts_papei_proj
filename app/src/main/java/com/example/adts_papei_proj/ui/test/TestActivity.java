@@ -1,43 +1,48 @@
 package com.example.adts_papei_proj.ui.test;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.adts_papei_proj.R;
 import com.example.adts_papei_proj.data.model.Question;
-import com.example.adts_papei_proj.ui.main.HomeActivity;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class TestActivity extends AppCompatActivity {
 
     private TextView questionTV, questionNumberTV;
-    private Button button1, button2, button3, button4;
+    private Button button1, button2, button3, button4, previous, next;
     private ArrayList<Question> questionArrayList ;
-    int currentScore, questionAttempted, currentPos, currentAttempt = 0;
+    private RadioGroup radioGroupQuestions;
+    int currentScore, questionAttempted, currentPos = 0;
+    int currentQuestion = 1;
+    String scorePercentage = "";
+    double scoreDouble = 0;
 
     @Override
     public void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_test_b);
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         questionTV = findViewById(R.id.idTVQuestion);
         questionNumberTV = findViewById(R.id.idTVQuestionAttempted);
         button1 = findViewById(R.id.btnOption1);
         button2 = findViewById(R.id.btnOption2);
         button3 = findViewById(R.id.btnOption3);
         button4 = findViewById(R.id.btnOption4);
+        previous = findViewById(R.id.previousQuestion);
+        next = findViewById(R.id.nextQuestion);
+
+        radioGroupQuestions = findViewById(R.id.radioGroupQuestions);
 
         //create questions
         questionArrayList = new ArrayList<>();
@@ -67,7 +72,11 @@ public class TestActivity extends AppCompatActivity {
                     currentScore++;
                 }
                 questionAttempted++;
-                currentPos++;
+                if(currentPos<questionArrayList.size())
+                {
+                    questionArrayList.remove(currentPos);
+                    currentPos++;
+                }
                 setDataToViews(currentPos);
             }
         });
@@ -80,7 +89,11 @@ public class TestActivity extends AppCompatActivity {
                     currentScore++;
                 }
                 questionAttempted++;
-                currentPos++;
+                if(currentPos<questionArrayList.size())
+                {
+                    questionArrayList.remove(currentPos);
+                    currentPos++;
+                }
                 setDataToViews(currentPos);
             }
         });
@@ -93,7 +106,11 @@ public class TestActivity extends AppCompatActivity {
                     currentScore++;
                 }
                 questionAttempted++;
-                currentPos++;
+                if(currentPos<questionArrayList.size())
+                {
+                    questionArrayList.remove(currentPos);
+                    currentPos++;
+                }
                 setDataToViews(currentPos);
             }
         });
@@ -107,23 +124,86 @@ public class TestActivity extends AppCompatActivity {
                     currentScore++;
                 }
                 questionAttempted++;
+                if(currentPos<questionArrayList.size())
+                {
+                    questionArrayList.remove(currentPos);
+                    currentPos++;
+                }
+
+                setDataToViews(currentPos);
+            }
+        });
+        previous.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                radioGroupQuestions.clearCheck();
+                if(currentPos>0)
+                {
+                    currentPos--;
+                }
+
+                setDataToViews(currentPos);
+            }
+        });
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                radioGroupQuestions.clearCheck();
                 currentPos++;
+                if(currentQuestion+1<questionArrayList.size())
+                {
+                    next.setEnabled(true);
+                }
+                else
+                {
+                    next.setEnabled(false);
+                }
+
                 setDataToViews(currentPos);
             }
         });
     }
 
     private void setDataToViews(int currentPos){
-        if(questionAttempted == questionArrayList.size())
+        radioGroupQuestions.clearCheck();
+
+        if(currentPos > 0)
         {
-            currentAttempt = questionAttempted+1;
-            questionNumberTV.setText("Questions Attempted: " + currentAttempt + "/" + questionArrayList.size());
-            showScore();
+            previous.setEnabled(true);
         }
         else
         {
-            currentAttempt = questionAttempted+1;
-            questionNumberTV.setText("Questions Attempted: " + currentAttempt + "/" + questionArrayList.size());
+            previous.setEnabled(false);
+        }
+        if(questionAttempted == questionArrayList.size() || currentQuestion == questionArrayList.size())
+        {
+            next.setEnabled(false);
+            //currentQuestion = questionAttempted+1;
+            questionNumberTV.setText("Question: " + currentQuestion + "/" + questionArrayList.size());
+            if(questionAttempted == questionArrayList.size())
+            {
+                showScore();
+
+            }
+            else
+            {
+                previous.setEnabled(true);
+            }
+        }
+        else
+        {
+
+            if(currentQuestion < questionArrayList.size())
+            {
+                next.setEnabled(true);
+            }
+            else {
+                next.setEnabled(false);
+            }
+
+
+            currentQuestion = currentPos+1;
+            questionNumberTV.setText("Question: " + currentQuestion + "/" + questionArrayList.size());
             questionTV.setText(questionArrayList.get(currentPos).getQuestionText());
 
             button1.setText(questionArrayList.get(currentPos).getPossibleAnswer1());

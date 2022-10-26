@@ -52,6 +52,7 @@
         android:layout_marginTop="30dp">
 
         <Button
+            android:background="@drawable/roundedbtn"
             android:backgroundTint="@color/bloodred"
             android:id="@+id/report"
             android:layout_width="wrap_content"
@@ -62,6 +63,7 @@
         </Button>
 
         <Button
+            android:background="@drawable/roundedbtn"
             android:backgroundTint="@color/bloodred"
             android:id="@+id/viewUserIncidents"
             android:layout_width="wrap_content"
@@ -71,6 +73,7 @@
             android:onClick="@{()->vm.startNewTestB2Level()}">
         </Button>
         <Button
+            android:background="@drawable/roundedbtn"
             android:backgroundTint="@color/bloodred"
             android:id="@+id/showResultsBtn"
             android:layout_width="wrap_content"
