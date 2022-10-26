@@ -72,11 +72,14 @@ public class TestActivity extends AppCompatActivity {
                     currentScore++;
                 }
                 questionAttempted++;
-                if(currentPos<questionArrayList.size())
+          /*      questionArrayList.remove(currentPos);*/
+                if(currentQuestion<15)
                 {
-                    questionArrayList.remove(currentPos);
+
                     currentPos++;
                 }
+                currentQuestion = currentPos;
+
                 setDataToViews(currentPos);
             }
         });
@@ -89,11 +92,14 @@ public class TestActivity extends AppCompatActivity {
                     currentScore++;
                 }
                 questionAttempted++;
-                if(currentPos<questionArrayList.size())
+             /*   questionArrayList.remove(currentPos);*/
+                if(currentQuestion<15)
                 {
-                    questionArrayList.remove(currentPos);
+
                     currentPos++;
                 }
+                currentQuestion = currentPos;
+
                 setDataToViews(currentPos);
             }
         });
@@ -106,11 +112,16 @@ public class TestActivity extends AppCompatActivity {
                     currentScore++;
                 }
                 questionAttempted++;
-                if(currentPos<questionArrayList.size())
+/*
+                questionArrayList.remove(currentPos);
+*/
+                if(currentQuestion<15)
                 {
-                    questionArrayList.remove(currentPos);
+
                     currentPos++;
                 }
+                currentQuestion = currentPos;
+
                 setDataToViews(currentPos);
             }
         });
@@ -124,11 +135,15 @@ public class TestActivity extends AppCompatActivity {
                     currentScore++;
                 }
                 questionAttempted++;
-                if(currentPos<questionArrayList.size())
+/*
+                questionArrayList.remove(currentPos);
+*/
+                if(currentQuestion<15)
                 {
-                    questionArrayList.remove(currentPos);
-                    currentPos++;
+
+                   currentPos++;
                 }
+                currentQuestion = currentPos;
 
                 setDataToViews(currentPos);
             }
@@ -137,10 +152,11 @@ public class TestActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 radioGroupQuestions.clearCheck();
-                if(currentPos>0)
+                if(currentPos>0 || currentQuestion<questionArrayList.size())
                 {
                     currentPos--;
                 }
+                currentQuestion = currentPos;
 
                 setDataToViews(currentPos);
             }
@@ -158,6 +174,7 @@ public class TestActivity extends AppCompatActivity {
                 {
                     next.setEnabled(false);
                 }
+                currentQuestion = currentPos;
 
                 setDataToViews(currentPos);
             }
@@ -175,35 +192,37 @@ public class TestActivity extends AppCompatActivity {
         {
             previous.setEnabled(false);
         }
-        if(questionAttempted == questionArrayList.size() || currentQuestion == questionArrayList.size())
+        if(questionAttempted == 15 || currentQuestion == questionArrayList.size())
         {
             next.setEnabled(false);
             //currentQuestion = questionAttempted+1;
-            questionNumberTV.setText("Question: " + currentQuestion + "/" + questionArrayList.size());
-            if(questionAttempted == questionArrayList.size())
+            questionNumberTV.setText("Question: " + currentQuestion + "/" + 15);
+            if(questionAttempted == 15)
             {
+                questionNumberTV.setText("Question: " + questionAttempted + "/" + 15);
                 showScore();
 
             }
             else
             {
                 previous.setEnabled(true);
+
             }
         }
         else
         {
 
-            if(currentQuestion < questionArrayList.size())
+            currentQuestion = currentPos+1;
+
+            if(currentQuestion < 15)
             {
                 next.setEnabled(true);
             }
             else {
+                previous.setEnabled(true);
                 next.setEnabled(false);
             }
-
-
-            currentQuestion = currentPos+1;
-            questionNumberTV.setText("Question: " + currentQuestion + "/" + questionArrayList.size());
+            questionNumberTV.setText("Question: " + currentQuestion + "/" + 15);
             questionTV.setText(questionArrayList.get(currentPos).getQuestionText());
 
             button1.setText(questionArrayList.get(currentPos).getPossibleAnswer1());
@@ -317,7 +336,7 @@ public class TestActivity extends AppCompatActivity {
                 (LinearLayout)findViewById(R.id.scoreLayout));
         TextView scoreTV = bottomView.findViewById(R.id.text_view_score);
         Button closeBtn = bottomView.findViewById(R.id.closeBtn);
-        scoreTV.setText(scoreTV.getText() + "\n" + currentScore +"/"+ questionArrayList.size());
+        scoreTV.setText(scoreTV.getText() + "\n" + currentScore +"/"+ 15);
         closeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
