@@ -55,32 +55,35 @@
             android:background="@drawable/roundedbtn"
             android:backgroundTint="@color/bloodred"
             android:id="@+id/report"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/new_test_b1"
             android:textAllCaps="false"
-            android:onClick="@{()->vm.startNewTestB1Level()}">
+            android:onClick="@{()->vm.startNewTestB1Level()}"
+            android:layout_margin="8dp">
         </Button>
 
         <Button
             android:background="@drawable/roundedbtn"
             android:backgroundTint="@color/bloodred"
             android:id="@+id/viewUserIncidents"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/new_test_b2"
             android:textAllCaps="false"
-            android:onClick="@{()->vm.startNewTestB2Level()}">
+            android:onClick="@{()->vm.startNewTestB2Level()}"
+            android:layout_margin="8dp">
         </Button>
         <Button
             android:background="@drawable/roundedbtn"
             android:backgroundTint="@color/bloodred"
             android:id="@+id/showResultsBtn"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/results"
             android:textAllCaps="false"
-            android:onClick="@{()->vm.startNewTestB1Level()}">
+            android:onClick="@{()->vm.startNewTestB1Level()}"
+            android:layout_margin="8dp">
         </Button>
 
     </LinearLayout>

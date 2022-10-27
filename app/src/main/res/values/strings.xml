@@ -132,7 +132,7 @@
 
     <!-- Incident literals-->
     <string name="view_all_user_incidents">My Incidents</string>
-    <string name="view_all_incidents">View All Incidents</string>
+    <string name="show_score">View results</string>
     <string name="earthquake">Earthquake</string>
     <string name="fire">Fire</string>
     <string name="flood">Flood</string>
