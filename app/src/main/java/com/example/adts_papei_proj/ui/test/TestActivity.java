@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -19,8 +20,9 @@ import java.util.ArrayList;
 public class TestActivity extends AppCompatActivity {
 
     private TextView questionTV, questionNumberTV;
-    private Button button1, button2, button3, button4, previous, next;
-    private ArrayList<Question> questionArrayList ;
+    private RadioButton button1, button2, button3, button4;
+    private Button  previous, next;
+    private ArrayList<Question> questionArrayList, correctQuestions, wrongQuestions, questionListAttempted ;
     private RadioGroup radioGroupQuestions;
     int currentScore, questionAttempted, currentPos = 0;
     int currentQuestion = 1;
@@ -44,8 +46,12 @@ public class TestActivity extends AppCompatActivity {
 
         radioGroupQuestions = findViewById(R.id.radioGroupQuestions);
 
-        //create questions
+        //create questions lists
         questionArrayList = new ArrayList<>();
+        //wrong and correct answered questions lists
+        correctQuestions = new ArrayList<>();
+        wrongQuestions = new ArrayList<>();
+        questionListAttempted = new ArrayList<>();
         if(getIntent().getStringExtra("level").equals("b1"))
         {
             createQuestionsB1(questionArrayList);
@@ -67,11 +73,19 @@ public class TestActivity extends AppCompatActivity {
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(questionArrayList.get(currentPos).getQuestionAnswer().trim().toLowerCase().equals(button1.getText().toString().trim().toLowerCase()))
+                if(questionArrayList.get(currentPos).getQuestionAnswer().trim().equalsIgnoreCase(button1.getText().toString().trim())
+                        && (questionArrayList.get(currentPos).getUserChoice() != 1))
                 {
                     currentScore++;
                 }
-                questionAttempted++;
+                if(!questionListAttempted.contains(questionArrayList.get(currentPos)))
+                {
+                    questionListAttempted.add(questionArrayList.get(currentPos));
+                    questionAttempted++;
+
+                }
+
+
           /*      questionArrayList.remove(currentPos);*/
                 if(currentQuestion<15)
                 {
@@ -79,7 +93,7 @@ public class TestActivity extends AppCompatActivity {
                     currentPos++;
                 }
                 currentQuestion = currentPos;
-
+                questionArrayList.get(currentPos).setUserChoice(1);
                 setDataToViews(currentPos);
             }
         });
@@ -87,11 +101,19 @@ public class TestActivity extends AppCompatActivity {
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(questionArrayList.get(currentPos).getQuestionAnswer().trim().toLowerCase().equals(button2.getText().toString().trim().toLowerCase()))
+                if(questionArrayList.get(currentPos).getQuestionAnswer().trim().equalsIgnoreCase(button2.getText().toString().trim())
+                        && (questionArrayList.get(currentPos).getUserChoice() != 2))
                 {
                     currentScore++;
                 }
-                questionAttempted++;
+
+                if(!questionListAttempted.contains(questionArrayList.get(currentPos)))
+                {
+                    questionListAttempted.add(questionArrayList.get(currentPos));
+                    questionAttempted++;
+
+                }
+
              /*   questionArrayList.remove(currentPos);*/
                 if(currentQuestion<15)
                 {
@@ -99,7 +121,7 @@ public class TestActivity extends AppCompatActivity {
                     currentPos++;
                 }
                 currentQuestion = currentPos;
-
+                questionArrayList.get(currentPos).setUserChoice(2);
                 setDataToViews(currentPos);
             }
         });
@@ -107,11 +129,18 @@ public class TestActivity extends AppCompatActivity {
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(questionArrayList.get(currentPos).getQuestionAnswer().trim().toLowerCase().equals(button3.getText().toString().trim().toLowerCase()))
+                if(questionArrayList.get(currentPos).getQuestionAnswer().trim().equalsIgnoreCase(button3.getText().toString().trim())
+                        && (questionArrayList.get(currentPos).getUserChoice() != 3))
                 {
                     currentScore++;
                 }
-                questionAttempted++;
+
+                if(!questionListAttempted.contains(questionArrayList.get(currentPos)))
+                {
+                    questionListAttempted.add(questionArrayList.get(currentPos));
+                    questionAttempted++;
+
+                }
 /*
                 questionArrayList.remove(currentPos);
 */
@@ -121,7 +150,7 @@ public class TestActivity extends AppCompatActivity {
                     currentPos++;
                 }
                 currentQuestion = currentPos;
-
+                questionArrayList.get(currentPos).setUserChoice(3);
                 setDataToViews(currentPos);
             }
         });
@@ -130,11 +159,19 @@ public class TestActivity extends AppCompatActivity {
         button4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(questionArrayList.get(currentPos).getQuestionAnswer().trim().toLowerCase().equals(button4.getText().toString().trim().toLowerCase()))
+                if(questionArrayList.get(currentPos).getQuestionAnswer().trim().equalsIgnoreCase(button4.getText().toString().trim())
+                        && (!questionListAttempted.contains(questionArrayList.get(currentPos))))
                 {
                     currentScore++;
+
                 }
-                questionAttempted++;
+
+                if(!questionListAttempted.contains(questionArrayList.get(currentPos)))
+                {
+                    questionListAttempted.add(questionArrayList.get(currentPos));
+                    questionAttempted++;
+
+                }
 /*
                 questionArrayList.remove(currentPos);
 */
@@ -144,7 +181,7 @@ public class TestActivity extends AppCompatActivity {
                    currentPos++;
                 }
                 currentQuestion = currentPos;
-
+                questionArrayList.get(currentPos).setUserChoice(4);
                 setDataToViews(currentPos);
             }
         });
@@ -229,6 +266,29 @@ public class TestActivity extends AppCompatActivity {
             button2.setText(questionArrayList.get(currentPos).getPossibleAnswer2());
             button3.setText(questionArrayList.get(currentPos).getPossibleAnswer3());
             button4.setText(questionArrayList.get(currentPos).getPossibleAnswer4());
+            if(currentQuestion+1<questionArrayList.size())
+            {
+                if(questionArrayList.get(currentQuestion).getUserChoice()>0)
+                {
+                    if(questionArrayList.get(currentQuestion).getUserChoice()==1)
+                    {
+                        button1.setChecked(true);
+                    }
+                    else if(questionArrayList.get(currentQuestion).getUserChoice()==2)
+                    {
+                        button2.setChecked(true);
+                    }
+                    else if(questionArrayList.get(currentQuestion).getUserChoice()==3)
+                    {
+                        button3.setChecked(true);
+                    }
+                    else if(questionArrayList.get(currentQuestion).getUserChoice()==4)
+                    {
+                        button4.setChecked(true);
+                    }
+                }
+            }
+
         }
 
     }
@@ -336,7 +396,17 @@ public class TestActivity extends AppCompatActivity {
                 (LinearLayout)findViewById(R.id.scoreLayout));
         TextView scoreTV = bottomView.findViewById(R.id.text_view_score);
         Button closeBtn = bottomView.findViewById(R.id.closeBtn);
-        scoreTV.setText(scoreTV.getText() + "\n" + currentScore +"/"+ 15);
+        
+        String scoreMsg = "" ;
+        
+        //calculate score double value for % view
+        scoreDouble = (currentScore * 100 / 15);
+        //set score msg to end the test and show to user
+        scoreMsg = scoreTV.getText() + "\n" + currentScore +"/"+ 15 + "\n" + scoreDouble + "%";
+        scoreTV.setText(scoreMsg);
+      
+        //todo hold current user score with uid, level, date, score, correct and wrong questions list
+        uploadUserScore(); 
         closeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -352,5 +422,8 @@ public class TestActivity extends AppCompatActivity {
         bottomSheetDialog.setCancelable(false);
         bottomSheetDialog.setContentView(bottomView);
         bottomSheetDialog.show();
+    }
+
+    private void uploadUserScore() {
     }
 }
