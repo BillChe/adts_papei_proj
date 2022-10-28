@@ -27,10 +27,14 @@
     </Button>
 
     <TextView
+        android:fontFamily="sans-serif-medium"
+        android:textColor="@color/bloodred"
         android:id="@+id/usernameText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@{vm.username}"
+        android:text="@string/welcome"
+        android:textSize="20sp"
+        android:lines="2"
         android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/logoutBtn">

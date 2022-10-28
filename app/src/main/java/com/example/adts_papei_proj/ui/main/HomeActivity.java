@@ -77,7 +77,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                     startActivity(intent);
                     finish();
                 }
-                }
+
+            }
 
         };
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Users");
