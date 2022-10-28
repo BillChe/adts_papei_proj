@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.databinding.DataBindingUtil;
 import androidx.drawerlayout.widget.DrawerLayout;
 import com.example.adts_papei_proj.R;
@@ -38,9 +39,6 @@ import java.util.Map;
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
     MainViewModel vm;
     ActivityHomeBinding binding;
-    //drawer layout
-    public DrawerLayout drawerLayout;
-    public ActionBarDrawerToggle actionBarDrawerToggle;
     public Button report;
     private String username;
     Context context;
@@ -55,11 +53,20 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home);
-
         vm = new MainViewModel(HomeActivity.this);
 
         binding.setVm(vm);
         context = HomeActivity.this;
+
+        report = findViewById(R.id.report);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        // get the Firebase  storage reference
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
+        usernameTextView = findViewById(R.id.usernameText);
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+
         authStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -88,26 +95,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                         //handle databaseError
                     }
                 });
-        // drawer layout instance to toggle the menu icon to open
-        // drawer and back button to close drawer
-        drawerLayout = findViewById(R.id.drawer_layout);
-        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.nav_open, R.string.nav_close);
 
-        report = findViewById(R.id.report);
-        // pass the Open and Close toggle for the drawer layout listener
-        // to toggle the button
-        drawerLayout.addDrawerListener(actionBarDrawerToggle);
-        actionBarDrawerToggle.syncState();
 
-        // to make the Navigation drawer icon always appear on the action bar
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        // get the Firebase  storage reference
-        storage = FirebaseStorage.getInstance();
-        storageReference = storage.getReference();
-        usernameTextView = findViewById(R.id.usernameText);
-        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-        vm.setUsername(getIntent().getStringExtra("name"));
-        usernameTextView.setText("Welcome "+ username);
+
     }
 
     private String collectUser(Map<String, Object> value) {
