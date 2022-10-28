@@ -10,10 +10,14 @@ public class Question {
     public String questionAnswer = "";
     public int userChoice = 0;
     public int correctAnswer = 0;
+    public int questionLevel = 0;//0 is b1 level 1 is b2 level
+
+    public Question() {
+    }
 
     public Question(String questionText, String possibleAnswer1, String possibleAnswer2,
                     String possibleAnswer3, String possibleAnswer4, String questionAnswer,
-                    int userChoice, int correctAnswer) {
+                    int userChoice, int correctAnswer, int questionLevel) {
         this.questionText = questionText;
         this.possibleAnswer1 = possibleAnswer1;
         this.possibleAnswer2 = possibleAnswer2;
@@ -22,7 +26,7 @@ public class Question {
         this.questionAnswer = questionAnswer;
         this.userChoice = userChoice;
         this.correctAnswer = correctAnswer;
-
+        this.questionLevel = questionLevel;
 
     }
 
@@ -88,5 +92,13 @@ public class Question {
 
     public void setCorrectAnswer(int correctAnswer) {
         this.correctAnswer = correctAnswer;
+    }
+
+    public int getQuestionLevel() {
+        return questionLevel;
+    }
+
+    public void setQuestionLevel(int questionLevel) {
+        this.questionLevel = questionLevel;
     }
 }

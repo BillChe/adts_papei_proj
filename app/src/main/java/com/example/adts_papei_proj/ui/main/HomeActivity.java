@@ -6,23 +6,34 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.drawerlayout.widget.DrawerLayout;
 import com.example.adts_papei_proj.R;
-import com.example.adts_papei_proj.data.model.LoggedInUser;
+import com.example.adts_papei_proj.data.User;
 import com.example.adts_papei_proj.data.viewmodels.MainViewModel;
 import com.example.adts_papei_proj.databinding.ActivityHomeBinding;
 import com.example.adts_papei_proj.ui.login.LoginActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+
+import java.util.ArrayList;
+import java.util.Map;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
     MainViewModel vm;
@@ -59,8 +70,24 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                     startActivity(intent);
                     finish();
                 }
-            }
+                }
+
         };
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Users");
+        ref.addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        //Get map of users in datasnapshot
+                        username = collectUser((Map<String,Object>) dataSnapshot.getValue());
+                        usernameTextView.setText("Welcome "+ username);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        //handle databaseError
+                    }
+                });
         // drawer layout instance to toggle the menu icon to open
         // drawer and back button to close drawer
         drawerLayout = findViewById(R.id.drawer_layout);
@@ -77,10 +104,30 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         // get the Firebase  storage reference
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
-        usernameTextView = findViewById(R.id.usernameTextView);
+        usernameTextView = findViewById(R.id.usernameText);
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
         vm.setUsername(getIntent().getStringExtra("name"));
-        usernameTextView.setText("Welcome "+ vm.getUsername());
+        usernameTextView.setText("Welcome "+ username);
+    }
+
+    private String collectUser(Map<String, Object> value) {
+        String name = "";
+
+        //iterate through each user, ignoring their UID
+        for (Map.Entry<String, Object> entry : value.entrySet()){
+            //Get user map
+            Map singleUser = (Map) entry.getValue();
+            if(singleUser.get("email").equals(FirebaseAuth.getInstance().getCurrentUser().getEmail()))
+            {
+                //Get username field
+                name = singleUser.get("username").toString();
+            }
+
+
+        }
+
+        System.out.println(name.toString());
+        return name;
     }
 
     @Override
@@ -104,7 +151,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 //sign out firebase user
                 FirebaseAuth.getInstance().signOut();
                 //intent to Login Activity
-                Intent registerIntent = new Intent(context, LoginActivity.class);
+                Intent registerIntent = new Intent(HomeActivity.this, LoginActivity.class);
                 registerIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(registerIntent);
                 //vm.logout();
@@ -129,41 +176,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 .show();
     }
 
-    public void report()
-    {
-/*        Incident incident = new Incident();
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        Date date = new Date();
-        String dateNow = dateFormat.format(date).toString();
-        //Adding values
-        incident.setDescription(incidentDescription);
-        incident.setDate(dateNow);
-        //incident.setLocation(vm.getLocation());
-        incident.setLocationLat(String.valueOf(vm.getLocation().getLatitude()));
-        incident.setLocationLong(String.valueOf(vm.getLocation().getLongitude()));
-        incident.setType(incidentType);
-        incident.setImageUrl(imageUrl);
-        incident.setUserUId(FirebaseAuth.getInstance().getCurrentUser().getUid());
-        FirebaseDatabase.getInstance().getReference("Incidents")
-                .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).push()
-                .setValue(incident)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful())
-                        {
-                            //todo remove them
-                            Toast.makeText(context, context.getString(R.string.reported_incident_success),
-                                    Toast.LENGTH_LONG).show();
-                            //todo redirect to Login Screen !!!!
-                        }
-                        else
-                        {
-                            Toast.makeText(context, context.getString(R.string.reported_incident__fail),
-                                    Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });*/
-    }
+
 
 }

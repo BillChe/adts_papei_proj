@@ -25,7 +25,7 @@
     </TextView>
 
     <TextView
-        android:maxLines="4"
+        android:lines="4"
         android:id="@+id/idTVQuestion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -118,13 +118,13 @@
     </RadioGroup>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="horizontal"
         android:id="@+id/nextAndPrevBtnsLayout"
         android:layout_below="@id/radioGroupQuestions"
         android:layout_marginRight="5dp"
         android:layout_marginLeft="5dp"
-
+        android:layout_marginBottom="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/radioGroupQuestions"

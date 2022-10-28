@@ -95,6 +95,24 @@ public class RegisterForm extends Activity implements View.OnClickListener{
                                         Toast.makeText(context, context.getString(R.string.register_success),
                                                 Toast.LENGTH_LONG).show();
                                         //todo redirect to Login Screen !!!!
+                                        new AlertDialog.Builder(context)
+                                                .setTitle("Completed entry")
+                                                .setMessage("You Are Now Registered")
+                                                // Specifying a listener allows you to take an action before dismissing the dialog.
+                                                // The dialog is automatically dismissed when a dialog button is clicked.
+                                                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                                        // Continue with delete operation
+                                                        dialog.dismiss();
+                                                        Intent loginIntent = new Intent(RegisterForm.this, LoginActivity.class);
+                                                        loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                        startActivity(loginIntent);
+                                                        finish();
+                                                    }
+                                                })
+                                                // A null listener allows the button to dismiss the dialog and take no further action.
+                                                .setIcon(android.R.drawable.ic_dialog_info)
+                                                .show();
                                     }
                                     else
                                     {
@@ -103,40 +121,23 @@ public class RegisterForm extends Activity implements View.OnClickListener{
                                     }
                                 }
                             });
+                    registered = true;
 
                 }
                 else
                 {
-                    Toast.makeText(context, context.getString(R.string.register_success),
+                    Toast.makeText(context, context.getString(R.string.register_fail),
                             Toast.LENGTH_LONG).show();
                 }
             }
         });
-        new AlertDialog.Builder(context)
-                .setTitle("Completed entry")
-                .setMessage("You Are Now Registered")
-                // Specifying a listener allows you to take an action before dismissing the dialog.
-                // The dialog is automatically dismissed when a dialog button is clicked.
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        // Continue with delete operation
-                        dialog.dismiss();
-                        Intent loginIntent = new Intent(RegisterForm.this, LoginActivity.class);
-                        loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(loginIntent);
-                        finish();
-                    }
-                })
-                // A null listener allows the button to dismiss the dialog and take no further action.
-                .setIcon(android.R.drawable.ic_dialog_info)
-                .show();
+
         }
         else
         {
             Toast.makeText(context, context.getString(R.string.please_check_data),
                     Toast.LENGTH_LONG).show();
         }
-            registered = true;
     }
 
 

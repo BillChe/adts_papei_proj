@@ -5,20 +5,27 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.location.Location;
 import android.os.Environment;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 
 
+import com.example.adts_papei_proj.R;
+import com.example.adts_papei_proj.data.model.UserTestResult;
 import com.example.adts_papei_proj.ui.login.LoginActivity;
+import com.example.adts_papei_proj.ui.test.ResultsActivity;
 import com.example.adts_papei_proj.ui.test.TestActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.File;
 import java.io.FileOutputStream;
 
 public class MainViewModel extends ViewModel {
     private String username;
-    private Location location;
     Context context;
 
     public MainViewModel() {
@@ -64,6 +71,12 @@ public class MainViewModel extends ViewModel {
         context.startActivity(startNewTestIntent);
     }
 
+    public void showResults()
+    {
+        Intent startNewTestIntent = new Intent(context, ResultsActivity.class);
+        context.startActivity(startNewTestIntent);
+    }
+
     private void createDirectoryAndSaveFile(Bitmap imageToSave, String fileName) {
 
         File direct = new File(Environment.getExternalStorageDirectory() + "/DirName");
@@ -86,18 +99,29 @@ public class MainViewModel extends ViewModel {
             e.printStackTrace();
         }
     }
-    public Location getLocation() {
-        return location;
+
+    public void uploadUserScore(UserTestResult testResult)
+    {
+
+        FirebaseDatabase.getInstance().getReference("UserTestResults")
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).push()
+                .setValue(testResult)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(task.isSuccessful())
+                        {
+                            //todo remove them
+                            Toast.makeText(context, context.getString(R.string.reported_incident_success),
+                                    Toast.LENGTH_LONG).show();
+                            //todo redirect to Login Screen !!!!
+                        }
+                        else
+                        {
+                            Toast.makeText(context, context.getString(R.string.reported_incident__fail),
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
     }
-
-    public void setLocation(Location location) {
-        this.location = location;
-    }
-
-
-
-
-
-
-
 }
