@@ -2,40 +2,130 @@
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="wrap_content" android:orientation="vertical"
     android:layout_width="fill_parent">
-
+ 
     <TableRow android:layout_width="fill_parent"
-        android:id="@+id/TableRow01"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:id="@+id/TableRow01">
 
         <TextView
-            android:id="@+id/id"
+            android:id="@+id/testLevel"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="id" android:textStyle="bold"
+            android:text="Test Level"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:fontFamily="sans-serif-medium"
             android:gravity="left"
             android:layout_weight="1"
             android:typeface="monospace"
-            android:height="40sp" />
+            android:height="40dp"
+            android:textColor="@color/bloodred"/>
     </TableRow>
 
     <TableRow android:layout_height="wrap_content"
-        android:layout_width="fill_parent">
+        android:layout_width="fill_parent"
+        android:id="@+id/TableRow02">
 
         <TextView
-            android:id="@+id/categoryId"
+            android:id="@+id/scoreStatic"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="Score"
             android:layout_weight="1"
-            android:height="20sp" />
+            android:height="25dp"
+            android:textSize="20sp"
+            android:fontFamily="sans-serif-medium" />
 
+        <TextView
+            android:id="@+id/score"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Score"
+            android:layout_weight="1"
+            android:height="25dp"
+            android:textSize="20sp"
+            android:fontFamily="sans-serif-medium"
+            android:textColor="@color/bloodred"/>
+    </TableRow>
+
+    <TableRow android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:id="@+id/TableRow03">
+        
         <TextView android:layout_height="wrap_content"
             android:layout_width="fill_parent"
             android:layout_weight="1"
-            android:gravity="right"
-            android:id="@+id/description"
+            android:id="@+id/datestatic"
             android:text="Date"
-            android:height="20sp" />
+            android:height="25dp"
+            android:textSize="20sp"
+            android:fontFamily="sans-serif-medium" />
+        
+        <TextView android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_weight="1"
+            android:id="@+id/date"
+            android:text="Date"
+            android:height="25dp"
+            android:textSize="20sp"
+            android:fontFamily="sans-serif-medium" />
+    </TableRow>
+
+    <TableRow android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:id="@+id/TableRow04">
+
+        <TextView android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:id="@+id/correctAnsStatic"
+            android:layout_weight="1"
+            android:text="Correct Answers"
+            android:height="25dp"
+            android:textSize="20sp"
+            android:fontFamily="sans-serif-medium"
+            android:textColor="@color/purple_700"/>
+    </TableRow>
+
+    <TableRow android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:id="@+id/TableRow05">
+
+        <TextView android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/correctAnswers"
+            android:height="25dp"
+            android:textSize="20sp"
+            android:fontFamily="sans-serif-medium"
+            android:textColor="@color/purple_700"/>
+    </TableRow>
+
+    <TableRow android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:id="@+id/TableRow06">
+
+        <TextView android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/wrongAnsStatic"
+            android:text="Wrong Answers"
+            android:height="25dp"
+            android:textSize="20sp"
+            android:fontFamily="sans-serif-medium"
+            android:textColor="@color/bloodred"/>
+    </TableRow>
+
+    <TableRow android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:id="@+id/TableRow07">
+
+        <TextView android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/wrongAnswers"
+            android:height="25dp"
+            android:textSize="20sp"
+            android:fontFamily="sans-serif-medium"
+            android:textColor="@color/bloodred"/>
     </TableRow>
 
 </TableLayout>

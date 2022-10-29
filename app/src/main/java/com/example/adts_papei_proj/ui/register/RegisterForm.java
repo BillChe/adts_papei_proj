@@ -86,7 +86,7 @@ public class RegisterForm extends AppCompatActivity implements View.OnClickListe
                 if(task.isSuccessful())
                 {
                     //create a user object
-                    User user = new User(username, email);
+                    User user = new User(username, email,false);
                     //put user in real time database
                     //create a firebase database object here
                     //create a collection named Users

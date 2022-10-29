@@ -6,6 +6,7 @@
         <variable
             name="vm"
             type="com.example.adts_papei_proj.data.viewmodels.MainViewModel" />
+        <import type="android.view.View"/>
     </data>
 
 
@@ -65,7 +66,7 @@
         <Button
             android:background="@drawable/roundedbtn"
             android:backgroundTint="@color/bloodred"
-            android:id="@+id/viewUserIncidents"
+            android:id="@+id/startnewB2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/new_test_b2"

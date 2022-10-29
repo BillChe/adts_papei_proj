@@ -6,17 +6,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.databinding.DataBindingUtil;
-import androidx.drawerlayout.widget.DrawerLayout;
+
 import com.example.adts_papei_proj.R;
 import com.example.adts_papei_proj.data.User;
 import com.example.adts_papei_proj.data.viewmodels.MainViewModel;
@@ -24,7 +20,6 @@ import com.example.adts_papei_proj.databinding.ActivityHomeBinding;
 import com.example.adts_papei_proj.ui.login.LoginActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,7 +28,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-import java.util.ArrayList;
 import java.util.Map;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
@@ -48,6 +42,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     FirebaseAuth.AuthStateListener authStateListener;
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     TextView usernameTextView ;
+    boolean isB1completed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +61,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         storageReference = storage.getReference();
         usernameTextView = findViewById(R.id.usernameText);
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+
 
         authStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -86,9 +82,18 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
+                        User currentUser = dataSnapshot.child(FirebaseAuth.getInstance().getUid()).getValue(User.class);
                         //Get map of users in datasnapshot
-                        username = collectUser((Map<String,Object>) dataSnapshot.getValue());
+                        username = collectUsername((Map<String,Object>) dataSnapshot.getValue());
                         usernameTextView.setText("Welcome "+ username);
+                        if(!currentUser.isB1completed())
+                        {
+                            binding.startnewB2.setVisibility(View.GONE);
+/*
+                            vm.setB1Completed(true);
+*/
+                        }
+                        vm.setUsername(username);
                     }
 
                     @Override
@@ -101,7 +106,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    private String collectUser(Map<String, Object> value) {
+
+    private String collectUsername(Map<String, Object> value) {
         String name = "";
 
         //iterate through each user, ignoring their UID
@@ -113,10 +119,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 //Get username field
                 name = singleUser.get("username").toString();
             }
-
-
         }
-
         System.out.println(name.toString());
         return name;
     }

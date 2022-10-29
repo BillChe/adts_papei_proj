@@ -27,13 +27,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 
 public class ResultsActivity extends AppCompatActivity {
-    private boolean showUser = false;
     ListView listView;
     ArrayList<UserTestResult> arrayList = new ArrayList<>();
     ListAdapter arrayAdapter ;
-    Button viewOnMap;
-    boolean problemsExist= false;
-    public static ArrayList<UserTestResult> markersArray = new ArrayList<>();
+    String username = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,39 +39,36 @@ public class ResultsActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Results");
+        if(getIntent().getStringExtra("name")!=null)
+        {
+            username = getIntent().getStringExtra("name");
+            getSupportActionBar().setTitle(username + " " + getSupportActionBar().getTitle());
+        }
         //set views and listener for button
-        viewOnMap = (Button) findViewById(R.id.viewOnMap);
-        showUser = true;
         getAllUserTestResults();
-        viewOnMap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(problemsExist)
-                    intentToMapsView();
-            }
-        });
+
     }
     private void getAllUserTestResults() {
         DatabaseReference database = FirebaseDatabase.getInstance().getReference("UserTestResults").child(FirebaseAuth.getInstance().getUid());
         listView = (ListView) findViewById(R.id.resultsListView);
         arrayAdapter = new ListAdapter(this, R.layout.itemlist,arrayList);
         listView.setAdapter(arrayAdapter);
+        arrayAdapter.clear();
         database.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
                 UserTestResult incidentTemp = snapshot.getValue(UserTestResult.class);
 
                     //show only user related problems
                     if(incidentTemp.getUid().equals(FirebaseAuth.getInstance().getUid()))
                     {
+                        incidentTemp.setUsername(username);
                         arrayList.add(incidentTemp);
-                        arrayAdapter.notifyDataSetChanged();
+
                     }
 
-                //fill markers array with incidents
-                markersArray.add(incidentTemp);
-                problemsExist = true;
-
+                arrayAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -99,12 +94,6 @@ public class ResultsActivity extends AppCompatActivity {
 
     }
 
-    private void intentToMapsView() {
-        Intent registerIntent = new Intent(ResultsActivity.this, HomeActivity.class);
-        startActivity(registerIntent);
-        ResultsActivity.this.finish();
-    }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -113,5 +102,11 @@ public class ResultsActivity extends AppCompatActivity {
                 break;
         }
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

@@ -27,30 +27,89 @@ public class ListAdapter extends ArrayAdapter<UserTestResult> {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         View v = convertView;
-
+        TextView tvScore = null/*= (TextView) v.findViewById(R.id.score)*/;
+        TextView tvDate= null /*= (TextView) v.findViewById(R.id.date)*/;
+        TextView tvLevel= null /*= (TextView) v.findViewById(R.id.testLevel)*/;
+        TextView tvCorrect= null /*= (TextView) v.findViewById(R.id.correctAnswers)*/;
+        TextView tvWrong = null/*= (TextView) v.findViewById(R.id.wrongAnswers)*/;
         if (v == null) {
             LayoutInflater vi;
             vi = LayoutInflater.from(mContext);
             v = vi.inflate(resourceLayout, null);
+
+            tvScore = (TextView) v.findViewById(R.id.score);
+            tvDate = (TextView) v.findViewById(R.id.date);
+            tvLevel = (TextView) v.findViewById(R.id.testLevel);
+            tvCorrect = (TextView) v.findViewById(R.id.correctAnswers);
+            tvWrong = (TextView) v.findViewById(R.id.wrongAnswers);
         }
+
 
         UserTestResult p = getItem(position);
 
         if (p != null) {
-            TextView tt1 = (TextView) v.findViewById(R.id.id);
-            TextView tt2 = (TextView) v.findViewById(R.id.categoryId);
-            TextView tt3 = (TextView) v.findViewById(R.id.description);
 
-            if (tt1 != null) {
-                tt1.setText(p.getUid());
+
+            if (tvScore != null) {
+                tvScore.setText(p.getScorePercentage() + "%");
             }
 
-            if (tt2 != null) {
-                tt2.setText(p.getScore());
+            if (tvDate != null) {
+                tvDate.setText(String.valueOf(p.getDate()));
             }
 
-            if (tt3 != null) {
-                tt3.setText(String.valueOf(p.getDate()));
+            if (tvLevel != null) {
+                tvLevel.setText(tvLevel.getText()+" B1");
+                if(p.getLevel()>0)
+                {
+                    tvLevel.setText(tvLevel.getText()+" B2");
+                }
+            }
+            String correctAnswers = "";
+            String wrongAnswers = "";
+            if (tvCorrect != null) {
+                if(p.getCorrectAnsweredQuestions()!=null &&
+                        p.getCorrectAnsweredQuestions().size()>0)
+                {
+                    for(int i = 0; i<p.getCorrectAnsweredQuestions().size();i++)
+                    {
+                        correctAnswers = tvCorrect.getText() + String.valueOf(p.getCorrectAnsweredQuestions().get(i).getQuestionOriginalNumber());
+
+                        if(i==p.getCorrectAnsweredQuestions().size()-1)
+                        {
+                            tvCorrect.setText(correctAnswers);
+                        }
+                        else
+                        {
+                            tvCorrect.setText(correctAnswers + ",");
+
+                        }
+                    }
+
+                }
+
+            }
+            if (tvWrong != null) {
+                if(p.getWrongAnsweredQuestions()!=null &&
+                        p.getWrongAnsweredQuestions().size()>0)
+                {
+                    for(int i = 0; i<p.getWrongAnsweredQuestions().size();i++)
+                    {
+                        wrongAnswers = tvWrong.getText() +String.valueOf(p.getWrongAnsweredQuestions().get(i).getQuestionOriginalNumber());
+
+                        if(i==p.getWrongAnsweredQuestions().size()-1)
+                        {
+                            tvWrong.setText(wrongAnswers);
+                        }
+                        else
+                        {
+                            tvWrong.setText(wrongAnswers + ",");
+
+                        }
+                    }
+
+                }
+
             }
         }
 

@@ -36,7 +36,7 @@ public class TestActivity extends AppCompatActivity {
     private Button  previous, next;
     private ArrayList<Question> questionArrayList, correctQuestions, wrongQuestions, questionListAttempted ;
     private RadioGroup radioGroupQuestions;
-    int currentScore, questionAttempted, currentPos = 0;
+    int currentScore, questionAttempted, currentPos,testLevel = 0;
     int currentQuestion = 1;
     String scorePercentage = "";
     double scoreDouble = 0;
@@ -74,6 +74,7 @@ public class TestActivity extends AppCompatActivity {
         }
         else if (getIntent().getStringExtra("level").equals("b2"))
         {
+            testLevel = 1;//set level for firebase
             getSupportActionBar().setTitle(getString(R.string.app_name) + " B2 TEST");
             createQuestionsB2(questionArrayList);
         }
@@ -92,7 +93,7 @@ public class TestActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(questionArrayList.get(currentPos).getQuestionAnswer().trim().equalsIgnoreCase(button1.getText().toString().trim())
-                        && (questionArrayList.get(currentPos).getUserChoice() != 1))
+                      &&!questionListAttempted.contains(questionArrayList.get(currentPos) ))
                 {
                     currentScore++;
                     //update correct answered questions
@@ -129,7 +130,7 @@ public class TestActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(questionArrayList.get(currentPos).getQuestionAnswer().trim().equalsIgnoreCase(button2.getText().toString().trim())
-                        && (questionArrayList.get(currentPos).getUserChoice() != 2))
+                        && !questionListAttempted.contains(questionArrayList.get(currentPos)))
                 {
                     currentScore++;
                     //update correct answered questions
@@ -164,7 +165,7 @@ public class TestActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(questionArrayList.get(currentPos).getQuestionAnswer().trim().equalsIgnoreCase(button3.getText().toString().trim())
-                        && (questionArrayList.get(currentPos).getUserChoice() != 3))
+                        && !questionListAttempted.contains(questionArrayList.get(currentPos)))
                 {
                     currentScore++;
                     //update correct answered questions
@@ -349,97 +350,97 @@ public class TestActivity extends AppCompatActivity {
     private void createQuestionsB2(ArrayList<Question> questionArrayList) {
         questionArrayList.add(new Question(getString(R.string.question_1),"to live",
                 "to have lived", "to be lived", "to be living",
-                "to have lived",0,2,1));
+                "to have lived",0,2,1,1));
         questionArrayList.add(new Question(getString(R.string.question_2),"on account of",
                 "due", "because", "owing",
-                "on account of",0,1,1));
+                "on account of",0,1,1,2));
         questionArrayList.add(new Question(getString(R.string.question_3),
                 "not having said", "have never said", "never said", "had never said",
-                "have never said",0,4,1));
+                "have never said",0,4,1,3));
         questionArrayList.add(new Question(getString(R.string.question_4),"to be abducted",
                 "to be abducting", "to have been abducted", "to have been abducting",
-                "to have been abducted",0,3,1));
+                "to have been abducted",0,3,1,4));
         questionArrayList.add(new Question(getString(R.string.question_5),"herself",
                 "her", "her own", "hers",
-                "her",0,2,1));
+                "her",0,2,1,5));
         questionArrayList.add(new Question(getString(R.string.question_6),"Not wanting",
                 "As not wanting", "She didn't want", "Because not wanting",
-                "Not wanting",0,1,1));
+                "Not wanting",0,1,1,6));
         questionArrayList.add(new Question(getString(R.string.question_7),"There's no point",
                 "It's no point", "There isn't point", "It's no need",
-                "There's no point",0,1,1));
+                "There's no point",0,1,1,7));
         questionArrayList.add(new Question(getString(R.string.question_8),"had written",
                 "has written", "had been writing", "wrote",
-                "had been writing",0,3,1));
+                "had been writing",0,3,1,8));
         questionArrayList.add(new Question(getString(R.string.question_9),"had",
                 "did", "got", "were",
-                "got",0,3,1));
+                "got",0,3,1,9));
         questionArrayList.add(new Question(getString(R.string.question_10),"In no way was he",
                 "No way he was ", "In any way he was", "In any way was he",
-                "In no way was he",0,1,1));
+                "In no way was he",0,1,1,10));
         questionArrayList.add(new Question(getString(R.string.question_11),"may not have been",
                 "may not be", "might not be", "must not have been",
-                "may not have been",0,1,1));
+                "may not have been",0,1,1,11));
         questionArrayList.add(new Question(getString(R.string.question_12),"were made sleeping",
                 "were made sleep", "were made to sleep", "made to sleep",
-                "were made to sleep",0,3,1));
+                "were made to sleep",0,3,1,12));
         questionArrayList.add(new Question(getString(R.string.question_13),"if he sent",
                 "had he sent", "if he has sent", "did he sent",
-                "had he sent",0,2,1));
+                "had he sent",0,2,1,13));
         questionArrayList.add(new Question(getString(R.string.question_14),"is to be achieved",
                 "is achieved", "will be achieved", "is due to achieve",
-                "is to be achieved",0,1,1));
+                "is to be achieved",0,1,1,14));
         questionArrayList.add(new Question(getString(R.string.question_15),"It's not allowed offering",
                 "It's not permitted to offer", "It's not permitted offering", "It's not allowed to offer",
-                "It's not permitted to offer",0,2,1));
+                "It's not permitted to offer",0,2,1,15));
     }
 
     private void createQuestionsB1 (ArrayList<Question> questionArrayList) {
-        questionArrayList.add(new Question(getString(R.string.question_2_1), "they have travelled ",
+        questionArrayList.add(new Question(getString(R.string.question_2_1), "they have travelled",
                 "have they travelled to", "they have travelled to", "have they travelled",
-                "they have travelled to", 0, 3,0));
+                "they have travelled to", 0, 3,0,1));
         questionArrayList.add(new Question(getString(R.string.question_2_2), "I do",
                 "I like", "Do i", "I am",
-                "I do", 0, 1,0));
+                "I do", 0, 1,0,2));
         questionArrayList.add(new Question(getString(R.string.question_2_3),
-                " Have you been seeing / have looked", "Have you seen / 've been looking", "Have you been seen / have been looking",
-                "Have you seing / 've looked", "Have you seen / 've been looking", 0, 2,0));
+                "Have you been seeing / have looked", "Have you seen / 've been looking", "Have you been seen / have been looking",
+                "Have you seing / 've looked", "Have you seen / 've been looking", 0, 2,0,3));
         questionArrayList.add(new Question(getString(R.string.question_2_4), "the Japanese",
                 "the Japanese people", "the Japaneses", "Japaneses",
-                "the Japanese", 0, 1,0));
-        questionArrayList.add(new Question(getString(R.string.question_2_5), " so",
+                "the Japanese", 0, 1,0,4));
+        questionArrayList.add(new Question(getString(R.string.question_2_5), "so",
                 "such", "such a", "so much",
-                "such", 0, 2,0));
+                "such", 0, 2,0,5));
         questionArrayList.add(new Question(getString(R.string.question_2_6), "will read",
                 "am going to read", "will be reading", "will have read",
-                "will have read", 0, 4,0));
+                "will have read", 0, 4,0,6));
         questionArrayList.add(new Question(getString(R.string.question_2_7), "wouldn't be",
                 "wouldn't have been", "isn't", "weren't",
-                "weren't", 0, 4,0));
+                "weren't", 0, 4,0,7));
         questionArrayList.add(new Question(getString(R.string.question_2_8), "could",
                 "would", "had", "will",
-                "could", 0, 1,0));
+                "could", 0, 1,0,8));
         questionArrayList.add(new Question(getString(R.string.question_2_9), "disappointing",
                 "disappointed", "disappoint", "disappointingly",
-                "disappointing", 0, 1,0));
+                "disappointing", 0, 1,0,9));
         questionArrayList.add(new Question(getString(R.string.question_2_10), "get married",
                 "to get married ", "having got married", "to have got married",
-                "having got married", 0, 3,0));
+                "having got married", 0, 3,0,10));
         questionArrayList.add(new Question(getString(R.string.question_2_11), "shouldn't have gone",
                 "should have gone", "must have gone", "can’t have gone",
-                "should have gone", 0, 2,0));
+                "should have gone", 0, 2,0,11));
         questionArrayList.add(new Question(getString(R.string.question_2_12), "you waited",
                 "you wait", " you to wait", "you waiting",
-                "you waited", 0, 1,0));
+                "you waited", 0, 1,0,12));
         questionArrayList.add(new Question(getString(R.string.question_2_13), "are thought that they",
                 "it’s thought that they", "are thought to", "are thought that",
-                "are thought to", 0, 3,0));
+                "are thought to", 0, 3,0,13));
         questionArrayList.add(new Question(getString(R.string.question_2_14), "test my blood pressure",
                 "have my blood pressure tested", "have tested my blood pressure", "get to test my blood pressure",
-                "have my blood pressure tested", 0, 2,0));
+                "have my blood pressure tested", 0, 2,0,14));
         questionArrayList.add(new Question(getString(R.string.question_2_15), "Despite of",
                 "Although", "In spite of", "However",
-                "In spite of", 0, 3,0));
+                "In spite of", 0, 3,0,15));
     }
 
 
@@ -451,7 +452,7 @@ public class TestActivity extends AppCompatActivity {
         Button closeBtn = bottomView.findViewById(R.id.closeBtn);
         
         String scoreMsg = "" ;
-        
+        //for corrected calculation
         //calculate score double value for % view
         scoreDouble = (currentScore * 100 / 15);
         //set score msg to end the test and show to user
@@ -459,9 +460,8 @@ public class TestActivity extends AppCompatActivity {
         scoreTV.setText(scoreMsg);
       
         //todo hold current user score with uid, level, date, score, correct and wrong questions list
-
-        testResult = new UserTestResult(questionArrayList,String.valueOf(currentScore),scoreDouble,"",
-                correctQuestions,wrongQuestions,null);
+        testResult = new UserTestResult(questionArrayList, String.valueOf(currentScore), scoreDouble,
+                "", correctQuestions, wrongQuestions,null, testLevel);
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         Date date = new Date();
         String dateNow = dateFormat.format(date).toString();
@@ -469,14 +469,17 @@ public class TestActivity extends AppCompatActivity {
         testResult.setDate(date);
         testResult.setUid(FirebaseAuth.getInstance().getCurrentUser()!=null?
                 FirebaseAuth.getInstance().getCurrentUser().getUid():"");
-        mainViewModel.uploadUserScore(testResult);
+
+
         closeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //restart values
                 setDataToViews(currentPos);
                 bottomSheetDialog.dismiss();
-                finish();
+
+                mainViewModel.uploadUserScore(testResult,testLevel,scoreDouble);
+                //finish();
             }
         });
         currentPos = 0;
