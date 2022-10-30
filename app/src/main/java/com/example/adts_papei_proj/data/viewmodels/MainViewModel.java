@@ -70,7 +70,7 @@ public class MainViewModel extends BaseObservable {
     public void startNewTestB1Level()
     {
         Intent startNewTestIntent = new Intent(context, TestActivity.class);
-
+        startNewTestIntent.putExtra("name",getUsername());
         startNewTestIntent.putExtra("level","b1");
 
         context.startActivity(startNewTestIntent);
@@ -79,7 +79,7 @@ public class MainViewModel extends BaseObservable {
     public void startNewTestB2Level()
     {
         Intent startNewTestIntent = new Intent(context, TestActivity.class);
-
+        startNewTestIntent.putExtra("name",getUsername());
         startNewTestIntent.putExtra("level","b2");
 
         context.startActivity(startNewTestIntent);

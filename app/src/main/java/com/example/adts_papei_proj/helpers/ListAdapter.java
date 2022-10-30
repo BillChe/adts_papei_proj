@@ -36,12 +36,12 @@ public class ListAdapter extends ArrayAdapter<UserTestResult> {
             LayoutInflater vi;
             vi = LayoutInflater.from(mContext);
             v = vi.inflate(resourceLayout, null);
-
             tvScore = (TextView) v.findViewById(R.id.score);
             tvDate = (TextView) v.findViewById(R.id.date);
             tvLevel = (TextView) v.findViewById(R.id.testLevel);
             tvCorrect = (TextView) v.findViewById(R.id.correctAnswers);
             tvWrong = (TextView) v.findViewById(R.id.wrongAnswers);
+
         }
 
 
@@ -116,7 +116,6 @@ public class ListAdapter extends ArrayAdapter<UserTestResult> {
 
             }
         }
-
         return v;
     }
 

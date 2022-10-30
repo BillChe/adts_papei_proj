@@ -49,6 +49,9 @@ public class TestActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_test_b);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        mainViewModel = new MainViewModel();
+
         questionTV = findViewById(R.id.idTVQuestion);
         questionNumberTV = findViewById(R.id.idTVQuestionAttempted);
         button1 = findViewById(R.id.btnOption1);
@@ -66,6 +69,9 @@ public class TestActivity extends AppCompatActivity {
         correctQuestions = new ArrayList<>();
         wrongQuestions = new ArrayList<>();
         questionListAttempted = new ArrayList<>();
+        if(getIntent().getStringExtra("name")!=null) {
+            mainViewModel.setUsername(getIntent().getStringExtra("name"));
+        }
         if(getIntent().getStringExtra("level").equals("b1"))
         {
             getSupportActionBar().setTitle(getString(R.string.app_name) + " B1 TEST");

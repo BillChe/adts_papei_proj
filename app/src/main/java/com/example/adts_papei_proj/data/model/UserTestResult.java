@@ -104,5 +104,19 @@ public class UserTestResult {
         this.username = username;
     }
 
+    @Override
+    public String toString() {
+        return "UserTestResult{" +
+                "uid='" + uid + '\'' +
+                ", score='" + score + '\'' +
+                ", level='" + level + '\'' +
+                ", scorePercentage='" + scorePercentage + '\'' +
+                ", questions='" + questions + '\'' +
+                ", date='" + date + '\'' +
+                ", username='" + username + '\'' +
+                ", correctAnsweredQuestions='" + correctAnsweredQuestions + '\'' +
+                ", wrongAnsweredQuestions='" + wrongAnsweredQuestions + '\'' +
 
+                '}';
+    }
 }
