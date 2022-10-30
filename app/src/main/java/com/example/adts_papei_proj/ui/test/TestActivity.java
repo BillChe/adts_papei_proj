@@ -50,8 +50,6 @@ public class TestActivity extends AppCompatActivity {
         setContentView(R.layout.activity_test_b);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mainViewModel = new MainViewModel();
-
         questionTV = findViewById(R.id.idTVQuestion);
         questionNumberTV = findViewById(R.id.idTVQuestionAttempted);
         button1 = findViewById(R.id.btnOption1);
@@ -69,6 +67,9 @@ public class TestActivity extends AppCompatActivity {
         correctQuestions = new ArrayList<>();
         wrongQuestions = new ArrayList<>();
         questionListAttempted = new ArrayList<>();
+        mainViewModel = new MainViewModel();
+        mainViewModel.setContext(this);
+
         if(getIntent().getStringExtra("name")!=null) {
             mainViewModel.setUsername(getIntent().getStringExtra("name"));
         }
@@ -90,7 +91,6 @@ public class TestActivity extends AppCompatActivity {
 
         setDataToViews(currentPos);
         setListeners();
-        mainViewModel = new MainViewModel(TestActivity.this);
     }
 
     private void setListeners() {
@@ -467,7 +467,7 @@ public class TestActivity extends AppCompatActivity {
       
         //todo hold current user score with uid, level, date, score, correct and wrong questions list
         testResult = new UserTestResult(questionArrayList, String.valueOf(currentScore), scoreDouble,
-                mainViewModel.getUsername(), correctQuestions, wrongQuestions,null, testLevel);
+                "", correctQuestions, wrongQuestions,null, testLevel);
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         Date date = new Date();
         String dateNow = dateFormat.format(date).toString();
@@ -475,7 +475,7 @@ public class TestActivity extends AppCompatActivity {
         testResult.setDate(date);
         testResult.setUid(FirebaseAuth.getInstance().getCurrentUser()!=null?
                 FirebaseAuth.getInstance().getCurrentUser().getUid():"");
-
+        testResult.setUsername(mainViewModel.getUsername());
 
         closeBtn.setOnClickListener(new View.OnClickListener() {
             @Override

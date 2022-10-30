@@ -184,4 +184,11 @@ public class MainViewModel extends BaseObservable {
         isB1Completed = b1Completed;
     }
 
+    public Context getContext() {
+        return context;
+    }
+
+    public void setContext(Context context) {
+        this.context = context;
+    }
 }
