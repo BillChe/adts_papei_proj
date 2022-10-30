@@ -461,7 +461,7 @@ public class TestActivity extends AppCompatActivity {
       
         //todo hold current user score with uid, level, date, score, correct and wrong questions list
         testResult = new UserTestResult(questionArrayList, String.valueOf(currentScore), scoreDouble,
-                "", correctQuestions, wrongQuestions,null, testLevel);
+                mainViewModel.getUsername(), correctQuestions, wrongQuestions,null, testLevel);
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         Date date = new Date();
         String dateNow = dateFormat.format(date).toString();

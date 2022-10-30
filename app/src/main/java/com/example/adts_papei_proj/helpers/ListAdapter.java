@@ -59,10 +59,14 @@ public class ListAdapter extends ArrayAdapter<UserTestResult> {
             }
 
             if (tvLevel != null) {
-                tvLevel.setText(tvLevel.getText()+" B1");
+
                 if(p.getLevel()>0)
                 {
                     tvLevel.setText(tvLevel.getText()+" B2");
+                }
+                else
+                {
+                    tvLevel.setText(tvLevel.getText()+" B1");
                 }
             }
             String correctAnswers = "";
