@@ -46,14 +46,15 @@ public class ResultsActivity extends AppCompatActivity {
             username = getIntent().getStringExtra("name");
             getSupportActionBar().setTitle(username + " " + getSupportActionBar().getTitle());
         }
+        //set views and listener for button
+        getAllUserTestResults();
+
 
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        //set views and listener for button
-        getAllUserTestResults();
 
     }
 
@@ -62,7 +63,6 @@ public class ResultsActivity extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.resultsListView);
         arrayAdapter = new ListAdapter(this, R.layout.itemlist,arrayList);
         listView.setAdapter(arrayAdapter);
-        arrayAdapter.clear();
 
         database.addChildEventListener(new ChildEventListener() {
             @Override

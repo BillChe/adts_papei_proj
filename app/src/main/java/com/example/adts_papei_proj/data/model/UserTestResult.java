@@ -116,7 +116,6 @@ public class UserTestResult {
                 ", username='" + username + '\'' +
                 ", correctAnsweredQuestions='" + correctAnsweredQuestions + '\'' +
                 ", wrongAnsweredQuestions='" + wrongAnsweredQuestions + '\'' +
-
                 '}';
     }
 }

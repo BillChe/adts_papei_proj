@@ -27,20 +27,12 @@ public class ListAdapter extends ArrayAdapter<UserTestResult> {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         View v = convertView;
-        TextView tvScore = null/*= (TextView) v.findViewById(R.id.score)*/;
-        TextView tvDate= null /*= (TextView) v.findViewById(R.id.date)*/;
-        TextView tvLevel= null /*= (TextView) v.findViewById(R.id.testLevel)*/;
-        TextView tvCorrect= null /*= (TextView) v.findViewById(R.id.correctAnswers)*/;
-        TextView tvWrong = null/*= (TextView) v.findViewById(R.id.wrongAnswers)*/;
+
         if (v == null) {
             LayoutInflater vi;
             vi = LayoutInflater.from(mContext);
             v = vi.inflate(resourceLayout, null);
-            tvScore = (TextView) v.findViewById(R.id.score);
-            tvDate = (TextView) v.findViewById(R.id.date);
-            tvLevel = (TextView) v.findViewById(R.id.testLevel);
-            tvCorrect = (TextView) v.findViewById(R.id.correctAnswers);
-            tvWrong = (TextView) v.findViewById(R.id.wrongAnswers);
+
 
         }
 
@@ -48,7 +40,16 @@ public class ListAdapter extends ArrayAdapter<UserTestResult> {
         UserTestResult p = getItem(position);
 
         if (p != null) {
-
+            TextView tvScore = null/*= (TextView) v.findViewById(R.id.score)*/;
+            TextView tvDate= null /*= (TextView) v.findViewById(R.id.date)*/;
+            TextView tvLevel= null /*= (TextView) v.findViewById(R.id.testLevel)*/;
+            TextView tvCorrect= null /*= (TextView) v.findViewById(R.id.correctAnswers)*/;
+            TextView tvWrong = null/*= (TextView) v.findViewById(R.id.wrongAnswers)*/;
+            tvScore = (TextView) v.findViewById(R.id.score);
+            tvDate = (TextView) v.findViewById(R.id.date);
+            tvLevel = (TextView) v.findViewById(R.id.testLevel);
+            tvCorrect = (TextView) v.findViewById(R.id.correctAnswers);
+            tvWrong = (TextView) v.findViewById(R.id.wrongAnswers);
 
             if (tvScore != null) {
                 tvScore.setText(p.getScorePercentage() + "%");
@@ -62,30 +63,30 @@ public class ListAdapter extends ArrayAdapter<UserTestResult> {
 
                 if(p.getLevel()>0)
                 {
-                    tvLevel.setText(tvLevel.getText()+" B2");
+                    tvLevel.setText("Test Result"+" B2");
                 }
                 else
                 {
-                    tvLevel.setText(tvLevel.getText()+" B1");
+                    tvLevel.setText("Test Result"+" B1");
                 }
             }
-            String correctAnswers = "";
-            String wrongAnswers = "";
+            StringBuilder correctAnswers = new StringBuilder();
+            StringBuilder wrongAnswers = new StringBuilder();
             if (tvCorrect != null) {
                 if(p.getCorrectAnsweredQuestions()!=null &&
                         p.getCorrectAnsweredQuestions().size()>0)
                 {
                     for(int i = 0; i<p.getCorrectAnsweredQuestions().size();i++)
                     {
-                        correctAnswers = tvCorrect.getText() + String.valueOf(p.getCorrectAnsweredQuestions().get(i).getQuestionOriginalNumber());
+                        correctAnswers.append(String.valueOf(p.getCorrectAnsweredQuestions().get(i).getQuestionOriginalNumber()));
 
                         if(i==p.getCorrectAnsweredQuestions().size()-1)
                         {
-                            tvCorrect.setText(correctAnswers);
+                            tvCorrect.setText(correctAnswers.toString());
                         }
                         else
                         {
-                            tvCorrect.setText(correctAnswers + ",");
+                            tvCorrect.setText(correctAnswers.append(","));
 
                         }
                     }
@@ -99,15 +100,15 @@ public class ListAdapter extends ArrayAdapter<UserTestResult> {
                 {
                     for(int i = 0; i<p.getWrongAnsweredQuestions().size();i++)
                     {
-                        wrongAnswers = tvWrong.getText() +String.valueOf(p.getWrongAnsweredQuestions().get(i).getQuestionOriginalNumber());
+                        wrongAnswers.append(String.valueOf(p.getWrongAnsweredQuestions().get(i).getQuestionOriginalNumber()));
 
                         if(i==p.getWrongAnsweredQuestions().size()-1)
                         {
-                            tvWrong.setText(wrongAnswers);
+                            tvWrong.setText(wrongAnswers.toString());
                         }
                         else
                         {
-                            tvWrong.setText(wrongAnswers + ",");
+                            tvWrong.setText(wrongAnswers.append(","));
 
                         }
                     }
